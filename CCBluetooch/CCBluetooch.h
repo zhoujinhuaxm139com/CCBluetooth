@@ -12,8 +12,6 @@
 //! Project version number for CCBluetooch.
 FOUNDATION_EXPORT double CCBluetoochVersionNumber;
 
-
-
 //! Project version string for CCBluetooch.
 FOUNDATION_EXPORT const unsigned char CCBluetoochVersionString[];
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2491067F2696CF09001344A8 /* CCBluetoothCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2491067D2696CF09001344A8 /* CCBluetoothCentralManager.h */; };
+		249106802696CF09001344A8 /* CCBluetoothCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491067E2696CF09001344A8 /* CCBluetoothCentralManager.m */; };
+		249106832696E444001344A8 /* CCPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = 249106812696E444001344A8 /* CCPeripheral.h */; };
+		249106842696E444001344A8 /* CCPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 249106822696E444001344A8 /* CCPeripheral.m */; };
 		24E01245269543F500C53B1F /* CCBluetooch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E0123B269543F500C53B1F /* CCBluetooch.framework */; };
 		24E0124A269543F500C53B1F /* CCBluetoochTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E01249269543F500C53B1F /* CCBluetoochTests.m */; };
 		24E0124C269543F500C53B1F /* CCBluetooch.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E0123E269543F500C53B1F /* CCBluetooch.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +27,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2491067D2696CF09001344A8 /* CCBluetoothCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBluetoothCentralManager.h; sourceTree = "<group>"; };
+		2491067E2696CF09001344A8 /* CCBluetoothCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCBluetoothCentralManager.m; sourceTree = "<group>"; };
+		249106812696E444001344A8 /* CCPeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCPeripheral.h; sourceTree = "<group>"; };
+		249106822696E444001344A8 /* CCPeripheral.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCPeripheral.m; sourceTree = "<group>"; };
 		24E0123B269543F500C53B1F /* CCBluetooch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CCBluetooch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E0123E269543F500C53B1F /* CCBluetooch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBluetooch.h; sourceTree = "<group>"; };
 		24E0123F269543F500C53B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +81,10 @@
 			children = (
 				24E0123E269543F500C53B1F /* CCBluetooch.h */,
 				24E0123F269543F500C53B1F /* Info.plist */,
+				2491067D2696CF09001344A8 /* CCBluetoothCentralManager.h */,
+				2491067E2696CF09001344A8 /* CCBluetoothCentralManager.m */,
+				249106812696E444001344A8 /* CCPeripheral.h */,
+				249106822696E444001344A8 /* CCPeripheral.m */,
 			);
 			path = CCBluetooch;
 			sourceTree = "<group>";
@@ -93,7 +105,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				249106832696E444001344A8 /* CCPeripheral.h in Headers */,
 				24E0124C269543F500C53B1F /* CCBluetooch.h in Headers */,
+				2491067F2696CF09001344A8 /* CCBluetoothCentralManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +228,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				249106842696E444001344A8 /* CCPeripheral.m in Sources */,
+				249106802696CF09001344A8 /* CCBluetoothCentralManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

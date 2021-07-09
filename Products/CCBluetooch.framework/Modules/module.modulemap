@@ -1,0 +1,6 @@
+framework module CCBluetooch {
+  umbrella header "CCBluetooch.h"
+
+  export *
+  module * { export * }
+}

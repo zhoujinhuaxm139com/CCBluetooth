@@ -10,6 +10,7 @@
 @interface CCBluetoothCentralManager()<CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (nonatomic, strong) NSHashTable *delegates;
 @property (nonatomic, strong) CBCentralManager *centralManager;
+
 @end
 static CCBluetoothCentralManager *central;
 static dispatch_once_t onetoken;
@@ -21,9 +22,13 @@ static dispatch_queue_t dispatch_queue;
     });
     return central;
 }
-+(instancetype)alloc{
-    NSCAssert(!central, @"CCBleManager类只能初始化一次");
-    return [super alloc];
+
+//+(instancetype)alloc{
+//    NSCAssert(!central, @"CCBleManager类只能初始化一次");
+//    return [super alloc];
+//}
++(id)allocWithZone:(NSZone *)zone{
+    return [self share];
 }
 +(void)registerQueue:(dispatch_queue_t)queue{
     dispatch_queue = queue;
@@ -32,6 +37,9 @@ static dispatch_queue_t dispatch_queue;
     if (self = [super init]) {
         [self setUp];
     }
+    return self;
+}
+-(id)copyWithZone:(NSZone *)zone{
     return self;
 }
 -(void)setUp{
@@ -87,8 +95,8 @@ static dispatch_queue_t dispatch_queue;
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central{
     NSArray *delegates = [self.delegates allObjects];
     for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
-        if ([obj respondsToSelector:@selector(bluetoothCentralManagerDidUpdateState:)]) {
-            [obj bluetoothCentralManagerDidUpdateState:central];
+        if ([obj respondsToSelector:@selector(cccentralManagerDidUpdateState:)]) {
+            [obj cccentralManagerDidUpdateState:central];
         }
     }
 }
@@ -96,8 +104,8 @@ static dispatch_queue_t dispatch_queue;
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
     NSArray *delegates = [self.delegates allObjects];
     for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
-        if ([obj respondsToSelector:@selector(bluetoothCentralManager:willRestoreState:)]) {
-            [obj bluetoothCentralManager:central willRestoreState:dict];
+        if ([obj respondsToSelector:@selector(cccentralManager:willRestoreState:)]) {
+            [obj cccentralManager:central willRestoreState:dict];
         }
     }
 }
@@ -105,75 +113,155 @@ static dispatch_queue_t dispatch_queue;
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     NSArray *delegates = [self.delegates allObjects];
     for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
-        if ([obj respondsToSelector:@selector(bluetoothCentralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
-            [obj bluetoothCentralManager:central didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+        if ([obj respondsToSelector:@selector(cccentralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
+            [obj cccentralManager:central didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
         }
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(cccentralManager:didConnectPeripheral:)]) {
+            [obj cccentralManager:central didConnectPeripheral:peripheral];
+        }
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(cccentralManager:didFailToConnectPeripheral:error:)]) {
+            [obj cccentralManager:central didFailToConnectPeripheral:peripheral error:error];
+        }
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(cccentralManager:didDisconnectPeripheral:error:)]) {
+            [obj cccentralManager:central didDisconnectPeripheral:peripheral error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didDiscoverServices:)]) {
+            [obj ccperipheral:peripheral didDiscoverServices:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didDiscoverCharacteristicsForService:error:)]) {
+            [obj ccperipheral:peripheral didDiscoverCharacteristicsForService:service error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didUpdateValueForCharacteristic:error:)]) {
+            [obj ccperipheral:peripheral didUpdateValueForCharacteristic:characteristic error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didDiscoverDescriptorsForCharacteristic:error:)]) {
+            [obj ccperipheral:peripheral didDiscoverDescriptorsForCharacteristic:characteristic error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didUpdateValueForDescriptor:error:)]) {
+            [obj ccperipheral:peripheral didUpdateValueForDescriptor:descriptor error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didWriteValueForCharacteristic:error:)]) {
+            [obj ccperipheral:peripheral didWriteValueForCharacteristic:characteristic error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didWriteValueForDescriptor:error:)]) {
+            [obj ccperipheral:peripheral didWriteValueForDescriptor:descriptor error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didUpdateValueForCharacteristic:error:)]) {
+            [obj ccperipheral:peripheral didUpdateValueForCharacteristic:characteristic error:error];
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error {
-
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didDiscoverCharacteristicsForService:error:)]) {
+            [obj ccperipheral:peripheral didDiscoverCharacteristicsForService:service error:error];
+        }
+    }
 }
 
 # if  __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error {
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didReadRSSI:error:)]) {
+            [obj ccperipheral:peripheral didReadRSSI:@(0) error:error];
+        }
+    }
 }
 #else
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error {
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didReadRSSI:error:)]) {
+            [obj ccperipheral:peripheral didReadRSSI:RSSI error:error];
+        }
+    }
 }
 #endif
 
 - (void)peripheralDidUpdateName:(CBPeripheral *)peripheral{
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheralDidUpdateName:)]) {
+            [obj ccperipheralDidUpdateName:peripheral];
+        }
+    }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
-    
+    NSArray *delegates = [self.delegates allObjects];
+    for (id<CCBluetoothCentralManagerDelegate> obj in delegates.objectEnumerator) {
+        if ([obj respondsToSelector:@selector(ccperipheral:didModifyServices:)]) {
+            [obj ccperipheral:peripheral didModifyServices:invalidatedServices];
+        }
+    }
 }
 @end

@@ -12,15 +12,24 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol CCBluetoothCentralManagerDelegate <NSObject>
 
 @optional
--(void)bluetoothCentralManagerDidUpdateState:(CBCentralManager *)central;
--(void)bluetoothCentralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict;
--(void)bluetoothCentralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI;
-- (void)bluetoothCentralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral;
-- (void)bluetoothCentralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
-- (void)bluetoothCentralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
-- (void)bluetoothPeripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error;
-
-
+-(void)cccentralManagerDidUpdateState:(CBCentralManager *)central;
+- (void)cccentralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict;
+- (void)cccentralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI;
+- (void)cccentralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral;
+- (void)cccentralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
+- (void)cccentralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error;
+- (void)ccperipheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error;
+- (void)ccperipheralDidUpdateName:(CBPeripheral *)peripheral;
+- (void)ccperipheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices;
 @end
 @interface CCBluetoothCentralManager : NSObject
 @property (nonatomic,strong) NSMutableArray <CCPeripheral *> *devices;

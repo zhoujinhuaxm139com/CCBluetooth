@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 @class CBPeripheral;
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, CCBluetoothDeviceState){
@@ -19,6 +20,7 @@ typedef NS_ENUM(NSInteger, CCBluetoothDeviceState){
 @property (nonatomic,strong) NSString *uuid;
 @property (nonatomic,strong) CBPeripheral *peripheral;
 @property (nonatomic,assign) CCBluetoothDeviceState status;
+@property (nonatomic,assign) NSUInteger maximumWriteLength;
 @end
 
 NS_ASSUME_NONNULL_END
